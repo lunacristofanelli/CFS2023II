@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,23 +14,20 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+exports.__esModule = true;
+var telefono_1 = require("./telefono");
 var TelefonoConCamara = /** @class */ (function (_super) {
     __extends(TelefonoConCamara, _super);
-    function TelefonoConCamara(camaraTrasera, camaraDelantera) {
-        var _this = _super.call(this, true, 10, true, true, true, 5) || this;
-        _this.sacarFoto = true;
-        _this.camaraTrasera = camaraTrasera;
-        _this.camaraDelantera = camaraDelantera;
-        return _this;
+    function TelefonoConCamara() {
+        return _super.call(this, 30) || this;
     }
-    TelefonoConCamara.prototype.foto = function () {
-        this.sacarFoto = !this.sacarFoto;
-    };
-    TelefonoConCamara.prototype.getMegapixelesCamaraTrasera = function () {
-        return this.camaraTrasera;
-    };
-    TelefonoConCamara.prototype.getMegapixelesCamaraDelantera = function () {
-        return this.camaraDelantera;
+    TelefonoConCamara.prototype.sacarFoto = function () {
+        return "haz sacado una foto";
     };
     return TelefonoConCamara;
-}(telefono));
+}(telefono_1.Telefono));
+var miTelefonoConCamara = new TelefonoConCamara;
+miTelefonoConCamara.hacerLlamada("juan");
+miTelefonoConCamara.mandarMensaje("hola como estas", "juan");
+miTelefonoConCamara.sacarFoto();
+console.log(miTelefonoConCamara);

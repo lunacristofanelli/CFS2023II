@@ -1,13 +1,17 @@
-var telefono = /** @class */ (function () {
-    function telefono(estaPrendido, bateriaActual, mandarMensaje, hacerLlamada, prenderApagar, volumenActual) {
-        this.estaPrendido = false;
-        this.bateriaActual = 0;
-        this.mandarMensaje = false;
-        this.hacerLlamada = false;
-        this.prenderApagar = false;
+"use strict";
+exports.__esModule = true;
+exports.Telefono = void 0;
+var Telefono = /** @class */ (function () {
+    function Telefono(bateriaActual) {
+        this.bateriaActual = bateriaActual;
+        if (this.bateriaActual >= 1) {
+            this.estaPrendido = true;
+        }
+        else
+            this.estaPrendido = false;
         this.volumenActual = 0;
     }
-    telefono.prototype.prendidoApagado = function () {
+    Telefono.prototype.prendidoApagado = function () {
         if (this.estaPrendido) {
             this.estaPrendido = false;
             return ("su celular esta apagado");
@@ -17,108 +21,82 @@ var telefono = /** @class */ (function () {
             return ("su celular esta prendido");
         }
     };
-    telefono.prototype.cargarBateria = function () {
-        this.bateriaActual += 1;
+    Telefono.prototype.cargarBateria = function () {
+        if (this.bateriaActual >= 1) {
+            if (this.bateriaActual < 100) {
+                this.bateriaActual += 1;
+                return ("su bateria actual esta al" + this.bateriaActual + "%");
+            }
+            else {
+                return "su bateria esta completa";
+            }
+        }
+        else
+            return ("su telefono esta apagado");
     };
-    telefono.prototype.porcentajeBateria = function (bateria) {
-        this.bateriaActual = bateria;
+    Telefono.prototype.mostrarBateria = function () {
         if (this.bateriaActual === 0) {
             this.estaPrendido = false;
             return ("cargue su celular");
         }
         else
-            return ("su celular está cargando");
+            return "su celular tiene " + this.bateriaActual + "% de bateria y está cargando";
     };
-    telefono.prototype.enviarMensaje = function () {
-        if (this.mandarMensaje)
-            this.mandarMensaje = false;
-        else
-            this.mandarMensaje = true;
-    };
-    telefono.prototype.llamar = function () {
-        if (this.hacerLlamada)
-            this.hacerLlamada = false;
-        else
-            this.hacerLlamada = true;
-    };
-    telefono.prototype.apagarPrender = function () {
-        if (this.prenderApagar)
-            this.prenderApagar = false;
-        else
-            this.prenderApagar = true;
-    };
-    telefono.prototype.subirVolumen = function () {
-        this.volumenActual += 1;
-    };
-    telefono.prototype.bajarVolumen = function () {
-        this.volumenActual -= 1;
-    };
-    return telefono;
-}());
-var miTelefono = new telefono(true, 10, true, true, true, 5);
-console.log(miTelefono);
-/*
-class Telefono {
-    private estaPrendido: boolean;
-    private bateriaActual: number;
-    private mandarMensaje: boolean;
-    private hacerLlamada: boolean;
-    private prenderApagar: boolean;
-    private volumenActual: number;
-
-    public constructor(estaPrendido: boolean, bateriaActual: number, mandarMensaje:boolean, hacerLlamada:boolean, prenderApagar:boolean, volumenActual:number) {
-        this.estaPrendido = false;
-        this.bateriaActual = 0;
-        this.mandarMensaje = false;
-        this.hacerLlamada = false;
-        this.prenderApagar = false;
-        this.volumenActual = 0;
-    }
-
-    public prendidoApagado(): void {
-        this.estaPrendido = !this.estaPrendido;
-    }
-
-    public cargarBateria(cantidad: number): void {
-        this.bateriaActual += cantidad;
-    }
-
-    public porcentajeBateria(): string {
-        if (this.bateriaActual === 0) {
-            this.estaPrendido = false;
-            return "Cargue su celular";
-        } else {
-            return "Su celular está cargando";
+    Telefono.prototype.mandarMensaje = function (mensaje, destinatario) {
+        // aca podriamos hacer que en cada mensaje se gaste un 1% de bateria por ejemplo
+        // y que al enviar mensaje, antes se fije si esta prendido
+        if (this.estaPrendido) {
+            this.bateriaActual -= 1;
+            return ("su mensaje : " + mensaje + ", ha sido enviado a" + destinatario);
         }
-    }
-
-    public enviarMensaje(): void {
-        this.mandarMensaje = !this.mandarMensaje;
-    }
-
-    public llamar(): void {
-        this.hacerLlamada = !this.hacerLlamada;
-    }
-
-    public apagarPrender(): void {
-        this.prenderApagar = !this.prenderApagar;
-    }
-
-    public subirVolumen(): void {
-        this.volumenActual += 1;
-    }
-
-    public bajarVolumen(): void {
-        this.volumenActual -= 1;
-    }
-
-    // public toString(): string {
-    //     return `Teléfono ${this.estaPrendido ? 'encendido' : 'apagado'}, Batería: ${this.bateriaActual}%, Volumen: ${this.volumenActual}`;
-    // }
-
-}
-
-let miTelefono = new Telefono(true, 20, true, false, false, 15)
-
+        else
+            return "no se pudo enviar su mensaje porque el telefono esta apagado";
+    };
+    Telefono.prototype.hacerLlamada = function (destinatario) {
+        if (this.estaPrendido) {
+            this.bateriaActual -= 1;
+            return ("llamando a " + destinatario);
+        }
+        else
+            return "no se pudo realizar la llamada porque el telefono esta apagado";
+    };
+    Telefono.prototype.prenderApagar = function () {
+        if (this.bateriaActual >= 1) {
+            if (this.estaPrendido == true) {
+                this.estaPrendido = false;
+                return "se apago su celular";
+            }
+            else {
+                this.estaPrendido = true;
+                return "se prendio tu celular";
+            }
+        }
+        else
+            return "conecte su celular, no tiene bateria";
+    };
+    //agregar que no pueda pasar del 100% del volumen
+    Telefono.prototype.subirVolumen = function () {
+        if (this.volumenActual <= 100) {
+            this.volumenActual += 1;
+            return "sumaste 1% del volumen";
+        }
+        else
+            return "tu volumen esta al maximo";
+    };
+    Telefono.prototype.bajarVolumen = function () {
+        if (this.volumenActual >= 1) {
+            this.volumenActual -= 1;
+            return "bajaste 1% del volumen";
+        }
+        else {
+            return "tu celular esta en silencio";
+        }
+    };
+    return Telefono;
+}());
+exports.Telefono = Telefono;
+var miTelefono = new Telefono(30);
+miTelefono.mandarMensaje("hola", "juan");
+miTelefono.subirVolumen();
+miTelefono.subirVolumen();
 console.log(miTelefono);
-*/ 

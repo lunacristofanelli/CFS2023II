@@ -1,3 +1,4 @@
+"use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
@@ -13,20 +14,31 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+exports.__esModule = true;
+var telefono_1 = require("./telefono");
 var telefonoConRadio = /** @class */ (function (_super) {
     __extends(telefonoConRadio, _super);
-    function telefonoConRadio(frecuenciaActual) {
-        var _this = _super.call(this, true, 10, true, true, true, 5) || this;
-        _this.frecuenciaActual = 0;
+    function telefonoConRadio() {
+        var _this = _super.call(this, 15) || this;
+        _this.frecuenciaActual = 100.5;
         return _this;
     }
+    telefonoConRadio.prototype.verfrecuenciaActual = function () {
+        return ("la frecuencia actual es " + this.frecuenciaActual);
+    };
     telefonoConRadio.prototype.sumarFrecuencia = function () {
         this.frecuenciaActual += 1;
+        return this.frecuenciaActual;
     };
     telefonoConRadio.prototype.bajarFrecuencia = function () {
         this.frecuenciaActual -= 1;
+        return this.frecuenciaActual;
     };
     return telefonoConRadio;
-}(telefono));
-var miTelefonoConRadio = new telefonoConRadio(100.5);
+}(telefono_1.Telefono));
+var miTelefonoConRadio = new telefonoConRadio;
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.verfrecuenciaActual();
 console.log(miTelefonoConRadio);

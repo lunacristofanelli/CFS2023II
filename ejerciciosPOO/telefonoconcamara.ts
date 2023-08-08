@@ -1,29 +1,18 @@
-// import { miTelefono } from './telefono';
+import { Telefono } from "./telefono"
 
-class TelefonoConCamara extends telefono {
-    public sacarFoto: boolean;
-    private camaraTrasera: number;
-    private camaraDelantera: number;
-
-    constructor(camaraTrasera: number, camaraDelantera: number) {
-        super(true, 10, true, true, true, 5);
-        this.sacarFoto = true;
-        this.camaraTrasera = camaraTrasera;
-        this.camaraDelantera = camaraDelantera;
+class TelefonoConCamara extends Telefono {
+    constructor() {
+        super(30);
     }
-
-    public foto(): void {
-        this.sacarFoto = !this.sacarFoto;
-    }
-
-    public getMegapixelesCamaraTrasera(): number {
-        return this.camaraTrasera;
-    }
-
-    public getMegapixelesCamaraDelantera(): number {
-        return this.camaraDelantera;
+    
+    sacarFoto () : string {
+        return "haz sacado una foto";
     }
 }
 
-let miTelefonoConCamara = new TelefonoConCamara (8,5);
-console.log (miTelefonoConCamara);
+let miTelefonoConCamara = new TelefonoConCamara; 
+
+miTelefonoConCamara.hacerLlamada("juan");
+miTelefonoConCamara.mandarMensaje("hola como estas", "juan");
+miTelefonoConCamara.sacarFoto();
+console.log(miTelefonoConCamara);

@@ -1,79 +1,112 @@
- class telefono {
-     private estaPrendido : boolean;
-     private bateriaActual : number;
-     private mandarMensaje : boolean;
-     private hacerLlamada : boolean;
-     private prenderApagar: boolean;
-     private volumenActual : number;
 
-     public constructor (estaPrendido: boolean, bateriaActual: number, mandarMensaje:boolean, hacerLlamada:boolean, prenderApagar:boolean, volumenActual:number) {
-         this.estaPrendido = false;
-         this.bateriaActual = 0;
-         this.mandarMensaje = false ;
-         this.hacerLlamada = false ;
-         this.prenderApagar = false ;
-         this.volumenActual = 0;
-     }
+export class Telefono {
+    private estaPrendido: boolean;
+    private bateriaActual: number;
+    private volumenActual: number;
 
-     public prendidoApagado(): string {
-         if (this.estaPrendido){
-         this.estaPrendido = false;
-         return ("su celular esta apagado")
-         }
-         else {
-         this.estaPrendido = true;
-         return ("su celular esta prendido")
-         }
-     }
+    public constructor(bateriaActual: number) {
+        this.bateriaActual = bateriaActual;
+        if (this.bateriaActual >= 1) {
+            this.estaPrendido = true
+        } else
+            this.estaPrendido = false;
+        this.volumenActual = 0;
+    }
 
-     public cargarBateria(): void {
-         this.bateriaActual += 1;
-     }
+    public prendidoApagado(): string {
+        if (this.estaPrendido) {
+            this.estaPrendido = false;
+            return ("su celular esta apagado")
+        }
+        else {
+            this.estaPrendido = true;
+            return ("su celular esta prendido")
+        }
+    }
 
-     public porcentajeBateria(bateria: number): string{
-         this.bateriaActual = bateria;
-         if (this.bateriaActual === 0){
-         this.estaPrendido = false
-         return ("cargue su celular")
-         }
-         else
-         return ("su celular está cargando")
-     }
-    
+    public cargarBateria(): string {
+        if (this.bateriaActual >= 1) {
+            if (this.bateriaActual < 100) {
+                this.bateriaActual += 1
+                return ("su bateria actual esta al" + this.bateriaActual + "%")
+            }
+            else {
+                return "su bateria esta completa"
+            }
+        }
+        else
+            return ("su telefono esta apagado")
+    }
+
+    public mostrarBateria(): string {
+        if (this.bateriaActual === 0) {
+            this.estaPrendido = false
+            return ("cargue su celular")
+        } else
+            return "su celular tiene " + this.bateriaActual + "% de bateria y está cargando"
+    }
 
 
-     public enviarMensaje () : void {
-         if (this.mandarMensaje)
-         this.mandarMensaje = false;
-         else
-         this.mandarMensaje = true;
-     }
 
-     public llamar () : void {
-         if (this.hacerLlamada) 
-         this.hacerLlamada = false;
-         else
-         this.hacerLlamada = true;
-     }
+    public mandarMensaje(mensaje: string, destinatario: string): string {
+        // aca podriamos hacer que en cada mensaje se gaste un 1% de bateria por ejemplo
+        // y que al enviar mensaje, antes se fije si esta prendido
+        if (this.estaPrendido) {
+            this.bateriaActual -= 1;
+            return ("su mensaje : " + mensaje + ", ha sido enviado a" + destinatario);
+        } else
+            return "no se pudo enviar su mensaje porque el telefono esta apagado";
+    }
 
-     public apagarPrender () : void {
-         if (this.prenderApagar)
-         this.prenderApagar = false;
-         else
-         this.prenderApagar = true;
-     }
+    public hacerLlamada(destinatario: string): string {
+        if (this.estaPrendido) {
+            this.bateriaActual -= 1;
+            return ("llamando a " + destinatario)
+        } else
+            return "no se pudo realizar la llamada porque el telefono esta apagado"
+    }
 
-     public subirVolumen () : void {
-         this.volumenActual += 1
-     }
 
-     public bajarVolumen () :void {
-         this.volumenActual -= 1
-     }
- }
+    public prenderApagar(): string {
+        if (this.bateriaActual >= 1) {
+            if (this.estaPrendido == true) {
+                this.estaPrendido = false;
+                return "se apago su celular"
+            } else {
+                this.estaPrendido = true;
+                return "se prendio tu celular"
+            }
 
- let miTelefono = new telefono(true, 10, true, true, true, 5);
+        } else
+            return "conecte su celular, no tiene bateria"
+    }
 
- console.log(miTelefono);
+    //agregar que no pueda pasar del 100% del volumen
+    public subirVolumen(): string {
+        if (this.volumenActual <= 100) {
+            this.volumenActual += 1
+            return "sumaste 1% del volumen";
+        } else
+            return "tu volumen esta al maximo";
+    }
+
+
+
+    public bajarVolumen(): string {
+        if (this.volumenActual >= 1) {
+            this.volumenActual -= 1
+            return "bajaste 1% del volumen";
+        } else {
+            return "tu celular esta en silencio";
+        }
+    }
+}
+
+let miTelefono = new Telefono(30);
+
+miTelefono.mandarMensaje("hola", "juan");
+miTelefono.subirVolumen();
+miTelefono.subirVolumen();
+console.log(miTelefono)
 
 

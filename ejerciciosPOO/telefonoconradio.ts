@@ -1,19 +1,34 @@
-class telefonoConRadio extends telefono{
-    private frecuenciaActual : number;
+import { Telefono } from "./telefono"
 
-    public constructor (frecuenciaActual : number) {
-        super(true, 10, true, true, true, 5)
-        this.frecuenciaActual = 0;
+
+class telefonoConRadio extends Telefono {
+    private frecuenciaActual: number;
+
+    public constructor() {
+        super(15)
+        this.frecuenciaActual = 100.5;
     }
 
-    public sumarFrecuencia (): void{
+
+    public verfrecuenciaActual(): string {
+        return ("la frecuencia actual es " + this.frecuenciaActual)
+    }
+
+    public sumarFrecuencia(): number {
         this.frecuenciaActual += 1;
+        return this.frecuenciaActual;
     }
 
-    public bajarFrecuencia (): void{
+    public bajarFrecuencia(): number {
         this.frecuenciaActual -= 1;
+        return this.frecuenciaActual;
     }
 }
 
-let miTelefonoConRadio = new telefonoConRadio(100.5)
-console.log (miTelefonoConRadio);
+let miTelefonoConRadio = new telefonoConRadio; 
+
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.bajarFrecuencia();
+miTelefonoConRadio.verfrecuenciaActual();
+console.log(miTelefonoConRadio);
